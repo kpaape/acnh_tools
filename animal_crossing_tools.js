@@ -59,6 +59,7 @@ window.onload = function() {
 function organize() {
     $("#tool_container ul").sortable({
         revert: true,
+        axis: "y",
         stop: function(event, ui) {
             setOrder();
         }

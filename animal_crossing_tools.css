@@ -55,15 +55,43 @@ body {
     cursor: pointer;
 }
 
+#line-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 #toggle .line {
     width: 100%;
     height: 20%;
     background-color: #809060;
     border-radius: 10px;
+    position: absolute;
+    transition: all 500ms ease-in-out;
 }
 
-#toggle .line:nth-child(2) {
-    margin: 20% 0;
+#toggle .line.top-line {
+    top: 0;
+}
+
+#toggle .line.mid-line {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#toggle .line.btm-line {
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+#toggle.close .line.top-line, #toggle.close .line.btm-line  {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+#toggle.close .line.mid-line {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
 }
 
 #nav_wrapper #options, #nav_wrapper #tool_options, #cancel {
@@ -74,7 +102,7 @@ body {
 }
 
 #nav_wrapper #options.open {
-    height: 180px;
+    height: 240px;
 }
 
 .option {
@@ -127,10 +155,14 @@ body {
 
 /* TOOL UI */
 
+
+ul { list-style-type: none; margin: 0; padding: 0; }
+
 .tool-wrapper {
     width: 100%;
     padding: 20px;
     cursor: pointer;
+    position: relative;
 }
 
 .tool-wrapper.hoverable:hover {
@@ -149,17 +181,19 @@ body {
 }
 
 .tool {
-    width: 100px;
-    height: 100px;
+    width: 20vw;
+    height: 20vw;
     background-color: #444;
     border: 5px solid #777;
     border-radius: 16px;
 }
 
 .durability {
-    width: calc(100% - 100px);
+    width: calc(80vw - 40px);
     padding-left: 20px;
-    height: 50px;
+    position: absolute;
+    height: calc(100% - 40px);
+    font-size: 5vw;
 }
 
 .meter-bg {
@@ -168,10 +202,22 @@ body {
     background-color: #444;
     border: 5px solid #777;
     border-radius: 5px;
+    height: 40%;
 }
 
 .meter {
     width: 100%;
     height: 100%;
     background: #0a0;
+}
+
+@media screen and (min-width: 768px) {
+    .tool {
+        width: 100px;
+        height: 100px;
+    }
+    .durability {
+        width: calc(100% - 140px);
+        font-size: 20px;
+    }
 }

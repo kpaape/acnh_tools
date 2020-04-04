@@ -9,7 +9,14 @@ window.onload = function() {
         $("#tool_options").removeClass("open");
         $(".tool-wrapper").removeClass("hoverable remove");
         $("#options").toggleClass("open");
+        $("#toggle").toggleClass("close");
+        renderTools();
         clickAction = "default";
+        if(!$(this).hasClass("option")) {
+            setTimeout(function() {
+                $("#btn_cancel").text("Cancel");
+            }, 500);
+        }
     });
     $("#btn_add_tool").on("click", function() {
         $("#tool_options").toggleClass("open");
@@ -31,12 +38,44 @@ window.onload = function() {
         $("#tool_options").removeClass("open");
         $(".tool-wrapper").removeClass("hoverable remove");
         $("#cancel").removeClass("open");
+        renderTools();
         clickAction = "default";
+        setTimeout(function() {
+            $("#btn_cancel").text("Cancel");
+        }, 500);
     });
     $("#btn_repair_tool").on("click", function() {
         clickAction = "repair";
         $(".tool-wrapper").toggleClass("hoverable");
     });
+
+    $("#btn_organize").on("click", function() {
+        $("#btn_cancel").text("Close");
+        renderTools(false);
+        organize();
+    })
+}
+
+function organize() {
+    $("#tool_container ul").sortable({
+        revert: true,
+        stop: function(event, ui) {
+            setOrder();
+        }
+    });
+    $("#tool_container ul, #tool_container li").disableSelection();
+}
+
+function setOrder() {
+    var htmlTools = $("#tool_container .tool-wrapper");
+    var orderedTools = [];
+    htmlTools.each(function() {
+        orderedTools.push(tools[$(this).attr("data-tool-index")]);
+    });
+    tools = orderedTools;
+    renderTools(false);
+    organize();
+    saveTools();
 }
 
 function loadTools() {
@@ -74,18 +113,21 @@ function attatchToolListener() {
     });
 }
 
-function renderTools() {
+function renderTools(attachClick=true) {
     saveTools();
-    var renderHTML = "";
+    var renderHTML = "<ul>";
     for(var i = 0; i < tools.length; i++) {
         var meter = tools[i].durability / tools[i].maxDurability * 100;
         meter = Math.max(meter, 0);
-        renderHTML += '<div class="tool-wrapper" data-tool-index="' + i + '"><div class="tool"><img src="' + tools[i].img + '"></div>';
+        renderHTML += '<li class="ui-state-default"><div class="tool-wrapper" data-tool-index="' + i + '"><div class="tool"><img src="' + tools[i].img + '"></div>';
         renderHTML += '<div class="durability">' + tools[i].name + '<div class="meter-bg">';
-        renderHTML += '<div class="meter" style="width: ' + meter + '%;"></div></div></div></div>';
+        renderHTML += '<div class="meter" style="width: ' + meter + '%;"></div></div></div></div></li>';
     }
+    renderHTML += "</ul>";
     $("#tool_container").html(renderHTML);
-    attatchToolListener();
+    if(attachClick) {
+        attatchToolListener();
+    }
 }
 
 function addTool(option, html=true) {

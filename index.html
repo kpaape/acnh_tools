@@ -11,6 +11,7 @@
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="animal_crossing_tools.js"></script>
 </head>
 
@@ -22,15 +23,18 @@
                 Tool Tracker
             </p>
             <div id="toggle">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
+                <div id="line-wrapper">
+                    <div class="line top-line"></div>
+                    <div class="line mid-line"></div>
+                    <div class="line btm-line"></div>
+                </div>
             </div>
         </div>
         <div id="options">
             <div id="btn_repair_tool" class="option">Repair Tool</div>
             <div id="btn_add_tool" class="option">Add Tool</div>
             <div id="btn_remove_tool" class="option">Remove Tool</div>
+            <div id="btn_organize" class="option">Organize Tools</div>
         </div>
         <div id="tool_options">
             <div class="tool-option" data-durability="10"><img src="images/flimsy_fishing_rod.svg">Flimsy Fishing Rod</div>
@@ -43,13 +47,14 @@
             <div class="tool-option" data-durability="40"><img src="images/flimsy_shovel.svg">Flimsy Shovel</div>
             <div class="tool-option" data-durability="100"><img src="images/shovel.svg">Shovel</div>
             <div class="tool-option" data-durability="30"><img src="images/slingshot.svg">Slingshot</div>
-            <div class="tool-option" data-durability="20"><img src="images/flimsy_watering_can.svg">Flimsy Watering Can (test)</div>
-            <div class="tool-option" data-durability="60"><img src="images/watering_can.svg">Watering Can (test)</div>
+            <div class="tool-option" data-durability="20"><img src="images/flimsy_watering_can.svg">Flimsy Watering Can</div>
+            <div class="tool-option" data-durability="60"><img src="images/watering_can.svg">Watering Can</div>
         </div>
         <div id="cancel"><div id="btn_cancel">Cancel</div></div>
     </div>
 
-    <div id="tool_container"></div>
+    <div id="tool_container">
+    </div>
 
 </body>
 </html>
